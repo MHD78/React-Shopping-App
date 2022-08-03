@@ -5,7 +5,7 @@ import { BsCart2 } from "react-icons/bs";
 const Header = () => {
   const items = useProducts();
   return (
-    <header className=" mb-5 sticky top-0 z-10  bg-[#0e0d29]  backdrop-blur-3xl  py-4 w-full font-semibold text-white mx-auto md:text-2xl ">
+    <header className=" mb-5 bg-zinc-800  dark:bg-[#0e0d29]  backdrop-blur-3xl  py-4 w-full font-semibold text-white mx-auto md:text-2xl ">
       <div className="max-w-7xl m-auto flex items-center justify-around ">
         <span className="relative p-2 max-w-5xl">
           <BsCart2 />

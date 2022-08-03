@@ -25,7 +25,7 @@ const ProductCard = ({ assets, dispatch }) => {
       </p>
       <span className="flex justify-between items-center  w-full  font-semibold">
         <span>{assets.price}$</span>
-        <button className="bg-indigo-500 hover:bg-indigo-700 dark:bg-[#da7d26] dark:hover:bg-[#d36600] transition-colors text-md lg:text-lg text-white font-mono font-bold rounded-lg px-3 py-0.5  self-end ">
+        <button className="bg-[#da7d26] hover:bg-[#d36600] transition-colors text-md lg:text-lg text-white font-mono font-bold rounded-lg px-3 py-0.5  self-end ">
           Buy!
         </button>
       </span>
