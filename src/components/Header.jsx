@@ -10,7 +10,7 @@ const Header = () => {
         <span className="relative p-2 max-w-5xl">
           <BsCart2 />
           <span className="bg-red-500 text-white rounded-full text-xs px-1 absolute right-0 top-0">
-            {items.length}
+            {0}
           </span>
         </span>
         <h2 className="text-[#da7d26]">React Shop</h2>

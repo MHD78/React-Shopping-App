@@ -52,9 +52,7 @@ const FilterProducts = ({ status, setStatus, sort, filter, setfilter }) => {
     <section
       className={`${
         status === "close" ? "invisible" : "visible"
-      } absolute w-full h-fit bottom-0 dark:bg-zinc-600 dark:text-gray-50 
-     flex flex-col gap-4 z-10 lg:col-span-2 lg:visible
-    lg:h-fit lg:w-fit bg-white lg:ml-4 mt-4 p-2 rounded-lg  lg:sticky lg:top-0 `}
+      } absolute w-full h-fit bottom-0 dark:bg-zinc-600 dark:text-gray-50 flex flex-col gap-4 z-10 lg:col-span-2 lg:visible lg:h-fit lg:w-fit bg-white lg:ml-4 mt-4 p-2 rounded-lg  lg:sticky lg:top-5 `}
     >
       <AiOutlineClose
         onClick={() => setStatus("close")}
