@@ -1,4 +1,4 @@
-import { useProducts } from "../context/userCartContext";
+import { useProducts } from "../context/ProductsContext";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsCart2 } from "react-icons/bs";
 

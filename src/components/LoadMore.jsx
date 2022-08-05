@@ -1,8 +1,8 @@
 import { useState } from "react";
 import http from "../services/httpServices";
-import { useProductsDispatcher } from "../context/userCartContext";
+import { useProductsDispatcher } from "../context/ProductsContext";
 
-const LoadMore = ({ sort, filter, setfilter }) => {
+const LoadMore = ({ sort, filter, setFilter }) => {
   const [count, setCount] = useState(18);
   const [status, setStatus] = useState("loaded");
   const loadingHandler = (message) => {
@@ -33,7 +33,7 @@ const LoadMore = ({ sort, filter, setfilter }) => {
       http.get(`/products?offset=0&limit=${count}`).then((response) => {
         dispatch({ type: "payload", data: response.data });
         dispatch({ type: "sort", value: sort });
-        setfilter("update");
+        setFilter("update");
         setCount((prev) => prev + 10);
         setStatus("loaded");
       });
@@ -43,7 +43,7 @@ const LoadMore = ({ sort, filter, setfilter }) => {
         .then((response) => {
           dispatch({ type: "payload", data: response.data });
           dispatch({ type: "sort", value: sort });
-          setfilter("update");
+          setFilter("update");
           setCount((prev) => prev + 10);
           setStatus("loaded");
         });

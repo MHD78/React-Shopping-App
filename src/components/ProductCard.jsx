@@ -15,7 +15,7 @@ const ProductCard = ({ assets, dispatch }) => {
       <div>
         <h2 className="text-sm font-semibold sm:text-base">{assets.title}</h2>
         <p
-          className="text-left text-xs sm:text-sm cursor-pointer"
+          className="text-left text-xs sm:text-sm cursor-pointer mt-1"
           onClick={() =>
             desc.length === 53
               ? setDesc(assets.description)
@@ -27,7 +27,7 @@ const ProductCard = ({ assets, dispatch }) => {
         <span className="flex justify-between items-center  w-full  font-semibold mt-4">
           <span>{assets.price}$</span>
           <button className="bg-[#ff8b1f] hover:bg-[#d36600] transition-colors text-sm md:text-base lg:text-lg text-white font-mono font-bold rounded-lg px-3 py-0.5  self-end ">
-            Buy!
+            Buy
           </button>
         </span>
       </div>

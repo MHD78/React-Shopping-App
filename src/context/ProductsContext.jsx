@@ -8,7 +8,6 @@ let initialValue = [];
 let initial = [];
 
 const reducer = (state, action) => {
-  console.log(state);
   switch (action.type) {
     case "payload":
       state = action.data;
@@ -74,7 +73,8 @@ const ProductsContextContext = ({ children }) => {
 export default ProductsContextContext;
 
 export const useProducts = () => useContext(ProductsContext);
-export const useProductsDispatcher = () => useContext(ProductsContextDispatcher);
+export const useProductsDispatcher = () =>
+  useContext(ProductsContextDispatcher);
 
 // [
 //     { id: 0, title: "shoes", price: "78$", quantity: 1 },

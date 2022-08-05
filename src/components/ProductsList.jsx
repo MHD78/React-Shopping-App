@@ -1,5 +1,5 @@
 import ProductCard from "./ProductCard";
-import { useProducts, useProductsDispatcher } from "../context/userCartContext";
+import { useProducts, useProductsDispatcher } from "../context/ProductsContext";
 import SortProducts from "./SortProducts";
 const ProductsList = ({ setStatus, setSort }) => {
   const products = useProducts();
@@ -11,6 +11,7 @@ const ProductsList = ({ setStatus, setSort }) => {
         setStatus={setStatus}
         setSort={setSort}
         dispatch={productsDispatcher}
+        productsCount={products.length}
       />
       <div className=" p-4 gap-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {products.map((product) => {
