@@ -13,6 +13,9 @@ const reducer = (state, action) => {
       state = action.data;
       initial = action.data;
       return state;
+    case "reset":
+      state = initial;
+      return state;
 
     case "filterByCategory":
       if (action.value === "All") {

@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { BiCheckbox } from "react-icons/bi";
 import { BiCheckboxChecked } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import { BsFillTrashFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
 import http from "../services/httpServices";
+import ChangeTheme from "./ChangeTheme";
 
 const categories = [
   "All",
@@ -64,12 +66,23 @@ const FilterProducts = ({ status, setStatus, sort, filter, setFilter }) => {
     <section
       className={`${
         status === "close" ? "invisible" : "visible"
-      } absolute w-full lg:h-fit h-4/6 overflow-y-scroll lg:overflow-hidden bottom-0 dark:bg-zinc-600 dark:text-gray-50 flex flex-col gap-4 z-10 lg:col-span-2 lg:visible lg:w-fit bg-white lg:ml-4 mt-4 rounded-lg  lg:sticky lg:top-5 `}
+      } absolute w-full lg:h-fit h-4/6 overflow-y-scroll lg:overflow-hidden bottom-0 dark:bg-zinc-600 dark:text-gray-50 flex flex-col gap-2 z-10 lg:col-span-2 lg:visible lg:w-fit bg-white lg:ml-4 mt-4 rounded-lg  lg:sticky lg:top-5 `}
     >
-      <AiOutlineClose
-        onClick={() => setStatus("close")}
-        className="absolute right-2 top-3 lg:invisible "
-      />
+      <div className="px-2 pt-2 flex items-center justify-between lg:hidden text-lg lg:text-xl font-bold">
+        <span className="flex items-center gap-1">
+          <BsFillTrashFill
+            onClick={() => {
+              dispatch({ type: "reset" });
+              setcategory("All");
+              setPrice("All");
+              setValue("");
+            }}
+            className=" text-red-500"
+          />
+          <p className="text-xs font-normal">delete filters</p>
+        </span>
+        <AiOutlineClose onClick={() => setStatus("close")} />
+      </div>
       <SearchBar value={value} setValue={setValue} />
       <RadioGroup className={"p-2"} value={category} onChange={setcategory}>
         <RadioGroup.Label className="text-lg lg:text-xl font-bold">
@@ -127,6 +140,9 @@ const FilterProducts = ({ status, setStatus, sort, filter, setFilter }) => {
       >
         Show {products.length} Products
       </div>
+      <span className=" font-semibold lg:block self-center  hidden ">
+        {products.length} Products
+      </span>
     </section>
   );
 };

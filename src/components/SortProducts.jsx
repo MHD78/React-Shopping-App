@@ -1,4 +1,5 @@
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
+import ChangeTheme from "./ChangeTheme";
 const SortProducts = ({ setStatus, setSort, productsCount, dispatch }) => {
   return (
     <div className="relative text-xs md:text-base bg-gray-50 dark:bg-zinc-600 flex justify-between items-center text-black dark:text-gray-50 rounded-lg  mt-4 p-2  mx-4">
@@ -17,13 +18,13 @@ const SortProducts = ({ setStatus, setSort, productsCount, dispatch }) => {
           <option value="high">Price-high to low</option>
         </select>
       </div>
-      <TbAdjustmentsHorizontal
-        onClick={() => setStatus("open")}
-        className="text-xl lg:invisible"
-      />
-      <span className="font-semibold lg:visible invisible absolute right-5">
-        {productsCount} Products
-      </span>
+      <div className="flex items-center gap-3">
+        <ChangeTheme />
+        <TbAdjustmentsHorizontal
+          onClick={() => setStatus("open")}
+          className="text-xl lg:hidden"
+        />
+      </div>
     </div>
   );
 };

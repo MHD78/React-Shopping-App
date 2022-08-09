@@ -6,11 +6,11 @@ const ProductCard = ({ assets, dispatch }) => {
     <div
       onMouseEnter={() => setImage(1)}
       onMouseLeave={() => setImage(0)}
-      className="h-full bg-gray-50 dark:bg-zinc-600 dark:text-gray-50 rounded-lg flex sm:flex-col justify-around items-center p-3 gap-4 group "
+      className="h-full  bg-gray-50 dark:bg-zinc-600 dark:text-gray-50 rounded-lg flex sm:flex-col justify-around items-center p-3 gap-4 group "
     >
       <img
         src={assets.images[image]}
-        className="w-24 sm:w-full h-fit self-start rounded-lg transition-all duration-200 transform group-hover:scale-105"
+        className="w-28 self-center sm:w-full h-fit rounded-lg transition-all duration-200 transform group-hover:scale-105"
       />
       <div>
         <h2 className="text-sm font-semibold sm:text-base">{assets.title}</h2>
@@ -24,7 +24,7 @@ const ProductCard = ({ assets, dispatch }) => {
         >
           {desc}
         </p>
-        <span className="flex justify-between items-center  w-full  font-semibold mt-4">
+        <span className=" flex justify-between items-center  w-full  font-semibold mt-4">
           <span>{assets.price}$</span>
           <button className="bg-[#ff8b1f] hover:bg-[#d36600] transition-colors text-sm md:text-base lg:text-lg text-white font-mono font-bold rounded-lg px-3 py-0.5  self-end ">
             Buy
