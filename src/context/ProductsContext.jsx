@@ -1,5 +1,3 @@
-import http from "../services/httpServices";
-import { useEffect, useState } from "react";
 import { createContext, useContext, useReducer } from "react";
 
 const ProductsContext = createContext();
@@ -58,11 +56,6 @@ const reducer = (state, action) => {
 };
 const ProductsContextContext = ({ children }) => {
   const [cart, dispatch] = useReducer(reducer, initialValue);
-  useEffect(() => {
-    http
-      .get("/products?offset=0&limit=18")
-      .then((response) => dispatch({ type: "payload", data: response.data }));
-  }, []);
 
   return (
     <ProductsContext.Provider value={cart}>
@@ -78,10 +71,3 @@ export default ProductsContextContext;
 export const useProducts = () => useContext(ProductsContext);
 export const useProductsDispatcher = () =>
   useContext(ProductsContextDispatcher);
-
-// [
-//     { id: 0, title: "shoes", price: "78$", quantity: 1 },
-//     { id: 1, title: "T-shirt", price: "19$", quantity: 3 },
-//     { id: 2, title: "pant", price: "58$", quantity: 1 },
-//     { id: 3, title: "suits", price: "198$", quantity: 1 },
-//   ];

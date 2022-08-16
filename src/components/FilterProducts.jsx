@@ -6,8 +6,7 @@ import { BiCheckboxChecked } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
-import http from "../services/httpServices";
-import ChangeTheme from "./ChangeTheme";
+import { useUserFilter, useUserFilterDispatch } from "../context/UserFilters";
 
 const categories = [
   "All",
@@ -26,9 +25,11 @@ const prices = [
   "500$ - 1000$",
   "More Than 1000$",
 ];
-const FilterProducts = ({ status, setStatus, sort, filter, setFilter }) => {
+const FilterProducts = ({ status, setStatus }) => {
   const products = useProducts();
   const dispatch = useProductsDispatcher();
+  const filters = useUserFilter();
+  const filtersDispatcher = useUserFilterDispatch();
 
   const [category, setcategory] = useState("All");
   const [price, setPrice] = useState("All");
@@ -43,24 +44,14 @@ const FilterProducts = ({ status, setStatus, sort, filter, setFilter }) => {
   }, [status]);
 
   useEffect(() => {
-    dispatch({ type: "filterByCategory", value: category });
-    dispatch({ type: "filterByPrice", value: price });
-    dispatch({ type: "filterBySearch", value: value });
-    setFilter(categories.indexOf(category));
-    dispatch({ type: "sort", value: sort });
-  }, [category, price, value, filter, sort]);
-
-  useEffect(() => {
-    if (category === "All") {
-      http.get(`/products?offset=0&limit=12`).then((response) => {
-        dispatch({ type: "payload", data: response.data });
-        dispatch({ type: "filterByPrice", value: price });
-        dispatch({ type: "filterBySearch", value: value });
-        dispatch({ type: "sort", value: sort });
-        console.log(sort);
-      });
-    }
-  }, [category]);
+    filtersDispatcher({
+      ...filters,
+      search: value,
+      price: price,
+      category: category,
+      categoryID: categories.indexOf(category),
+    });
+  }, [category, price, value]);
 
   return (
     <section

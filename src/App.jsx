@@ -3,13 +3,11 @@ import ProductsContextContext from "./context/ProductsContext";
 import Header from "./components/Header";
 import ProductsList from "./components/ProductsList";
 import FilterProducts from "./components/FilterProducts";
-import LoadMore from "./components/LoadMore";
-import ChangeTheme from "./components/ChangeTheme";
 import UserTheme from "./context/UserTheme";
+import Pagination from "./components/Pagination";
+import UserFilters from "./context/UserFilters";
 
 function App() {
-  const [filter, setFilter] = useState();
-  const [sort, setSort] = useState("low");
   const [status, setStatus] = useState("close");
 
   return (
@@ -18,18 +16,14 @@ function App() {
     >
       <ProductsContextContext>
         <UserTheme>
-          <Header />
-          <div className="max-w-7xl grid grid-cols-12 m-auto">
-            <FilterProducts
-              setStatus={setStatus}
-              status={status}
-              sort={sort}
-              filter={filter}
-              setFilter={setFilter}
-            />
-            <ProductsList setStatus={setStatus} setSort={setSort} />
-          </div>
-          <LoadMore sort={sort} filter={filter} setFilter={setFilter} />
+          <UserFilters>
+            <Header />
+            <div className="max-w-7xl grid grid-cols-12 m-auto">
+              <FilterProducts setStatus={setStatus} status={status} />
+              <ProductsList setStatus={setStatus} />
+            </div>
+            <Pagination />
+          </UserFilters>
         </UserTheme>
       </ProductsContextContext>
     </div>

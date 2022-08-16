@@ -1,6 +1,9 @@
-import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import ChangeTheme from "./ChangeTheme";
-const SortProducts = ({ setStatus, setSort, productsCount, dispatch }) => {
+import { useUserFilter, useUserFilterDispatch } from "../context/UserFilters";
+import { TbAdjustmentsHorizontal } from "react-icons/tb";
+const SortProducts = ({ setStatus }) => {
+  const filters = useUserFilter();
+  const filterDispatch = useUserFilterDispatch();
   return (
     <div className="relative text-xs md:text-base bg-gray-50 dark:bg-zinc-600 flex justify-between items-center text-black dark:text-gray-50 rounded-lg  mt-4 p-2  mx-4">
       <div>
@@ -9,8 +12,7 @@ const SortProducts = ({ setStatus, setSort, productsCount, dispatch }) => {
           className="bg-gray-200 text-black dark:bg-zinc-500 rounded-lg p-1.5 dark:text-white font-semibold outline-none  ml-2"
           name="sort"
           onChange={(e) => {
-            dispatch({ type: "sort", value: e.target.value });
-            setSort(e.target.value);
+            filterDispatch({ ...filters, sort: e.target.value });
           }}
         >
           {/* <option value="none">none</option> */}
