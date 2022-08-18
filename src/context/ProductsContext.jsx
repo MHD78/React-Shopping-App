@@ -50,8 +50,6 @@ const reducer = (state, action) => {
       }
       state = [...state.sort((a, b) => b.price - a.price)];
       return state;
-    default:
-      console.log("adfasdasdasdasdadad");
   }
 };
 const ProductsContextContext = ({ children }) => {

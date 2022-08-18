@@ -15,6 +15,7 @@ const UserFilters = ({ children }) => {
     price: "All",
     category: "All",
     categoryID: 0,
+    status: "",
   });
   useEffect(() => {
     dispatch({ type: "filterByCategory", value: filter.category });

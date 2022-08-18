@@ -5,6 +5,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import getAllProds from "../services/getAllProductsService";
 import { useUserFilter, useUserFilterDispatch } from "../context/UserFilters";
+import getProdsByCategory from "../services/getProdsByCategory";
 
 const Pagination = () => {
   const dispatch = useProductsDispatcher();
@@ -18,7 +19,7 @@ const Pagination = () => {
   const [offset, setOffset] = useState(0);
 
   const mountHandler = () => {
-    dispatch({ type: "payload", data: [] });
+    filterDispatch({ ...filters, status: "fetching" });
     getAllProds("", "").then((response) => {
       dispatch({ type: "payload", data: response.data.slice(0, 20) });
       filterDispatch({ ...filters, update: true });
@@ -26,45 +27,41 @@ const Pagination = () => {
         if (i !== 0) res.push({ value: i });
       }
       setCount(res);
+      filterDispatch({ ...filters, status: "fetched" });
     });
   };
   useEffect(() => {
     if (filters.categoryID === 0) {
       mountHandler();
-      // setActive(1);
     } else {
-      dispatch({ type: "payload", data: [] });
-      http
-        .get(`/categories/${filters.categoryID}/products`)
-        .then((response) => {
-          dispatch({ type: "payload", data: response.data.slice(0, 20) });
-          filterDispatch({ ...filters, update: true });
-          for (let i = 0; i < Math.ceil(response.data.length / 20); i++) {
-            if (i !== 0) res.push({ value: i });
-          }
-          setCount(res);
-          // setActive(1);
-        });
+      filterDispatch({ ...filters, status: "fetching" });
+      getProdsByCategory(filters.categoryID).then((response) => {
+        dispatch({ type: "payload", data: response.data.slice(0, 20) });
+        filterDispatch({ ...filters, update: true });
+        for (let i = 0; i < Math.ceil(response.data.length / 20); i++) {
+          if (i !== 0) res.push({ value: i });
+        }
+        setCount(res);
+        filterDispatch({ ...filters, status: "fetched" });
+      });
     }
     window.scroll({ top: 0, behavior: "smooth" });
   }, [filters.categoryID]);
   useEffect(() => {
     if (filters.categoryID === 0) {
-      dispatch({ type: "payload", data: [] });
+      filterDispatch({ ...filters, status: "fetching" });
       getAllProds(offset, limit).then((response) => {
         dispatch({ type: "payload", data: response.data });
         filterDispatch({ ...filters, update: true });
+        filterDispatch({ ...filters, status: "fetched" });
       });
     } else {
-      dispatch({ type: "payload", data: [] });
-      http
-        .get(
-          `/categories/${filters.categoryID}/products?offset=${offset}&limit=${limit}`
-        )
-        .then((response) => {
-          dispatch({ type: "payload", data: response.data.slice(0, 20) });
-          filterDispatch({ ...filters, update: true });
-        });
+      filterDispatch({ ...filters, status: "fetching" });
+      getProdsByCategory(filters.categoryID, offset, limit).then((response) => {
+        dispatch({ type: "payload", data: response.data.slice(0, 20) });
+        filterDispatch({ ...filters, update: true });
+        filterDispatch({ ...filters, status: "fetched" });
+      });
     }
     window.scroll({ top: 0, behavior: "smooth" });
   }, [active]);
@@ -83,7 +80,11 @@ const Pagination = () => {
     }
   };
   return (
-    <ul className="flex items-center justify-center gap-x-1 dark:text-white  md:gap-x-2 lg:p-2  text-xs md:text-base lg:w-full ">
+    <ul
+      className={`${
+        count < 20 ? "invisible" : "visible"
+      } mx-auto my-5 flex items-center justify-center dark:text-white  gap-x-2 lg:p-2  text-sm md:text-base w-full`}
+    >
       <li>
         <AiOutlineArrowLeft
           className="cursor-pointer"

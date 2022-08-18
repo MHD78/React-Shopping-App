@@ -6,6 +6,7 @@ import FilterProducts from "./components/FilterProducts";
 import UserTheme from "./context/UserTheme";
 import Pagination from "./components/Pagination";
 import UserFilters from "./context/UserFilters";
+import Footer from "./components/Footer";
 
 function App() {
   const [status, setStatus] = useState("close");
@@ -23,6 +24,7 @@ function App() {
               <ProductsList setStatus={setStatus} />
             </div>
             <Pagination />
+            <Footer />
           </UserFilters>
         </UserTheme>
       </ProductsContextContext>
