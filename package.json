@@ -15,7 +15,9 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-loading-skeleton": "^3.1.0",
-    "react-search-box": "^2.2.1"
+    "react-router-dom": "^5.2.0",
+    "react-search-box": "^2.2.1",
+    "swiper": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

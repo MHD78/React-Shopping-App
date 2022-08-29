@@ -53,7 +53,7 @@ const Footer = () => {
 
         <div className=" min-w-fit flex flex-col gap-y-2">
           <h2 className="text-lg font-semibold">Be the first to know</h2>
-          <p className="text-sm max-w-fit">
+          <p className="text-sm max-w-sm ">
             Sign up to stay in the loop about the hottest deals, coolest new
             products, and exclusive sales events.
           </p>

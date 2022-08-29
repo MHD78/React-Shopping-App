@@ -4,6 +4,7 @@ import SortProducts from "./SortProducts";
 import ProductsSkeleton from "./ProductsSkeleton";
 import { useUserFilter } from "../context/UserFilters";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProductsList = ({ setStatus }) => {
   const [length, setLength] = useState(0);
@@ -31,7 +32,11 @@ const ProductsList = ({ setStatus }) => {
       return (
         <div className=" p-4 gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {products.map((product) => {
-            return <ProductCard key={product} assets={product} />;
+            return (
+              <Link to={`/products/${product.id}`}>
+                <ProductCard key={product} assets={product} />
+              </Link>
+            );
           })}
         </div>
       );
