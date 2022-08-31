@@ -1,18 +1,14 @@
-import FilterProducts from "../components/FilterProducts";
-import ProductsList from "../components/ProductsList";
-import Pagination from "../components/Pagination";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const [status, setStatus] = useState("close");
   return (
-    <>
-      <div className="max-w-7xl grid grid-cols-12 m-auto">
-        <FilterProducts setStatus={setStatus} status={status} />
-        <ProductsList setStatus={setStatus} />
-      </div>
-      <Pagination />
-    </>
+    <div className="h-screen grid items-center justify-center">
+      <Link to={"/products/page/1?category=0&price=All"}>
+        <button className="bg-orange-400 rounded-lg px-3 py-1">
+          Go Shopping!
+        </button>
+      </Link>
+    </div>
   );
 };
 

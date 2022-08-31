@@ -6,7 +6,8 @@ import { BiCheckboxChecked } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import SearchBar from "./SearchBar";
-import { useUserFilter, useUserFilterDispatch } from "../context/UserFilters";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 const categories = [
   "All",
@@ -26,14 +27,19 @@ const prices = [
   "More Than 1000$",
 ];
 const FilterProducts = ({ status, setStatus }) => {
+  const query = queryString.parse(window.location.search);
+
   const products = useProducts();
   const dispatch = useProductsDispatcher();
-  const filters = useUserFilter();
-  const filtersDispatcher = useUserFilterDispatch();
 
   const [category, setcategory] = useState("All");
   const [price, setPrice] = useState("All");
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setcategory(categories[query.category]);
+    setPrice(query.price);
+  }, []);
 
   useEffect(() => {
     if (status === "open") {
@@ -44,14 +50,11 @@ const FilterProducts = ({ status, setStatus }) => {
   }, [status]);
 
   useEffect(() => {
-    filtersDispatcher({
-      ...filters,
-      search: value,
-      price: price,
-      category: category,
-      categoryID: categories.indexOf(category),
-    });
-  }, [category, price, value]);
+    //search
+    dispatch({ type: "filterByCategory", value: category });
+    dispatch({ type: "filterByPrice", value: price });
+    dispatch({ type: "filterBySearch", value: value });
+  }, [value]);
 
   return (
     <section
@@ -61,15 +64,17 @@ const FilterProducts = ({ status, setStatus }) => {
     >
       <div className="px-2 pt-2 flex items-center justify-between lg:hidden text-lg lg:text-xl font-bold">
         <span className="flex items-center gap-1">
-          <BsFillTrashFill
-            onClick={() => {
-              dispatch({ type: "reset" });
-              setcategory("All");
-              setPrice("All");
-              setValue("");
-            }}
-            className=" text-red-500"
-          />
+          <Link to={"/products/page/1?category=0&price=All"}>
+            <BsFillTrashFill
+              onClick={() => {
+                dispatch({ type: "reset" });
+                setcategory("All");
+                setPrice("All");
+                setValue("");
+              }}
+              className=" text-red-500"
+            />
+          </Link>
           <p className="text-xs font-normal">delete filters</p>
         </span>
         <AiOutlineClose onClick={() => setStatus("close")} />
@@ -81,22 +86,29 @@ const FilterProducts = ({ status, setStatus }) => {
         </RadioGroup.Label>
         {categories.map((category, index) => {
           return (
-            <RadioGroup.Option
-              value={category}
-              key={index}
-              className="cursor-pointer m-1 ml-2 text-xs"
+            <Link
+              to={{
+                pathname: "/products/page/1",
+                search: `?category=${index}&price=${price}`,
+              }}
             >
-              {({ checked }) => (
-                <span className="flex justify-between items-center">
-                  {category}
-                  {checked ? (
-                    <BiCheckboxChecked className="text-2xl text-[#da7d26] " />
-                  ) : (
-                    <BiCheckbox className="text-2xl" />
-                  )}
-                </span>
-              )}
-            </RadioGroup.Option>
+              <RadioGroup.Option
+                value={category}
+                key={index}
+                className="cursor-pointer m-1 ml-2 text-xs"
+              >
+                {({ checked }) => (
+                  <span className="flex justify-between items-center">
+                    {category}
+                    {checked ? (
+                      <BiCheckboxChecked className="text-2xl text-[#da7d26] " />
+                    ) : (
+                      <BiCheckbox className="text-2xl" />
+                    )}
+                  </span>
+                )}
+              </RadioGroup.Option>
+            </Link>
           );
         })}
       </RadioGroup>
@@ -106,22 +118,31 @@ const FilterProducts = ({ status, setStatus }) => {
         </RadioGroup.Label>
         {prices.map((price, index) => {
           return (
-            <RadioGroup.Option
-              value={price}
-              key={index}
-              className="cursor-pointer m-1 ml-2 text-xs"
+            <Link
+              to={{
+                pathname: "/products/page/1",
+                search: `?category=${categories.indexOf(
+                  category
+                )}&price=${price}`,
+              }}
             >
-              {({ checked }) => (
-                <span className="flex justify-between items-center">
-                  {price}
-                  {checked ? (
-                    <BiCheckboxChecked className="text-2xl text-[#da7d26]" />
-                  ) : (
-                    <BiCheckbox className="text-2xl" />
-                  )}
-                </span>
-              )}
-            </RadioGroup.Option>
+              <RadioGroup.Option
+                value={price}
+                key={index}
+                className="cursor-pointer m-1 ml-2 text-xs"
+              >
+                {({ checked }) => (
+                  <span className="flex justify-between items-center">
+                    {price}
+                    {checked ? (
+                      <BiCheckboxChecked className="text-2xl text-[#da7d26]" />
+                    ) : (
+                      <BiCheckbox className="text-2xl" />
+                    )}
+                  </span>
+                )}
+              </RadioGroup.Option>
+            </Link>
           );
         })}
       </RadioGroup>

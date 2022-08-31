@@ -3,48 +3,69 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
+import { BsFillCartPlusFill } from "react-icons/bs";
 import getSingleProduct from "../services/getSingleProduct";
+import SimilarProducts from "./SimilarProducts";
+
 const ProductDetail = (props) => {
-  console.log(props);
-  const [product, setProduct] = useState({ images: [] });
+  const [product, setProduct] = useState({
+    images: [],
+    category: { id: null },
+  });
+
   const [detail, setDetail] = useState("DESCRIPTION");
+  const [active, setActive] = useState(0);
+  const [selectedColor, setColor] = useState();
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     getSingleProduct(props.match.params.id).then((res) => setProduct(res.data));
-    console.log("first");
-    window.scrollTo(0, 0, "smooth");
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
-  const [active, setActive] = useState(0);
-  const [selectedColor, setColor] = useState();
   const colors = ["bg-red-400", "bg-green-400", "bg-black", "bg-yellow-400"];
   return (
-    <section className="w-full max-w-7xl  flex  flex-col justify-center mx-auto bg-gray-50 rounded-lg my-12 ">
+    <main className="w-full max-w-7xl  flex  flex-col justify-center mx-auto bg-gray-50 rounded-lg my-12 ">
       <section className=" w-full flex justify-center md:flex-row flex-col mx-auto py-12 px-4 gap-2">
         <div className="  flex flex-col-reverse justify-between gap-y-2">
           <div className=" max-w-xl">
             <ul className="w-[320px]   flex">
-              {product.images.map((image, index) => {
-                return (
-                  <li
-                    onClick={() => setActive(index)}
-                    className={`${
-                      active === index
-                        ? "border-orange-600 border-b-2 transition-all duration-500"
-                        : "border-orange-200 border-b-2"
-                    } pr-1 py-2 `}
-                  >
-                    <img src={image} className=" rounded-lg" />
-                  </li>
-                );
-              })}
+              {product.length !== 0 &&
+                product.images.map((image, index) => {
+                  return (
+                    <li
+                      onClick={() => setActive(index)}
+                      className={`${
+                        active === index
+                          ? "border-orange-600 border-b-2 transition-all duration-500"
+                          : "border-orange-200 border-b-2"
+                      } pr-1 py-2 `}
+                    >
+                      <img src={image} className=" rounded-lg cursor-pointer" />
+                    </li>
+                  );
+                })}
             </ul>
           </div>
           <div className=" relative max-w-xl ">
-            <img src={product.images[0]} className=" rounded-lg" />
+            <img src={product.images[active]} className="rounded-lg" />
             <div className=" right-2 text-4xl font-bold text-orange-400">
-              <AiOutlineLeft className="top-1/2 absolute cursor-pointer mb-2 hover:text-orange-500" />
-              <AiOutlineRight className="top-1/2 absolute right-0 cursor-pointer hover:text-orange-500" />
+              <AiOutlineLeft
+                onClick={() => {
+                  active >= 1 && setActive((prev) => prev - 1);
+                }}
+                className="top-1/2 absolute cursor-pointer mb-2 hover:text-orange-500"
+              />
+              <AiOutlineRight
+                onClick={() => {
+                  active < 2 && setActive((prev) => prev + 1);
+                }}
+                className="top-1/2 absolute right-0 cursor-pointer hover:text-orange-500"
+              />
             </div>
           </div>
         </div>
@@ -69,20 +90,30 @@ const ProductDetail = (props) => {
               );
             })}
           </div>
-          <div className="max-w-xl flex justify-between  mb-4  pb-3">
-            <h2 className="text-lg">QUANTITY : 1</h2>
+          <div className=" max-w-xl flex justify-between items-center  my-4 ">
+            <h2 className="text-lg">QUANTITY : {count}</h2>
             <span className="flex gap-x-3">
-              <AiOutlineMinus />
-              <AiOutlinePlus />
+              <AiOutlineMinus
+                className={`${
+                  count === 1 && "text-gray-400 cursor-not-allowed"
+                } text-xl font-semibold cursor-pointer`}
+                onClick={() => count > 1 && setCount((prev) => prev - 1)}
+              />
+              <AiOutlinePlus
+                className="text-xl font-semibold cursor-pointer"
+                onClick={() => setCount((prev) => prev + 1)}
+              />
             </span>
           </div>
-          <button className="max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg">
+
+          <button className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg">
             ADD TO CART
+            <BsFillCartPlusFill className="text-lg" />
           </button>
         </div>
       </section>
       <section className=" w-full mb-12 border-t-2">
-        <ul className="flex justify-start m-4">
+        <ul className="flex justify-start ml-4">
           <li
             onClick={() => setDetail("DESCRIPTION")}
             className={`${
@@ -136,7 +167,8 @@ const ProductDetail = (props) => {
           including versions of Lorem Ipsum.
         </p>
       </section>
-    </section>
+      <SimilarProducts category={product.category.id} />
+    </main>
   );
 };
 

@@ -1,6 +1,6 @@
 const ProductCard = ({ assets }) => {
   return (
-    <div className="h-full  bg-gray-50 dark:bg-zinc-600 dark:text-gray-50 rounded-lg flex flex-col justify-around items-center p-3 gap-4 group ">
+    <div className="h-full  snap-center  bg-gray-50 dark:bg-zinc-600 dark:text-gray-50 rounded-lg flex flex-col justify-around items-center p-3 gap-4 group ">
       {assets.images.length !== 3 ? (
         assets.images
       ) : (

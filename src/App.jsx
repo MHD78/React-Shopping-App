@@ -1,6 +1,5 @@
 import ProductsContextContext from "./context/ProductsContext";
 import UserTheme from "./context/UserTheme";
-import UserFilters from "./context/UserFilters";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Layout from "./layout/Layout";
@@ -16,11 +15,9 @@ function App() {
           <Layout>
             <ProductsContextContext>
               <UserTheme>
-                <UserFilters>
-                  {routes.map((route) => (
-                    <Route {...route} />
-                  ))}
-                </UserFilters>
+                {routes.map((route) => (
+                  <Route {...route} />
+                ))}
               </UserTheme>
             </ProductsContextContext>
           </Layout>
