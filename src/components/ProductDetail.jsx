@@ -4,10 +4,17 @@ import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
 import { BsFillCartPlusFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import getSingleProduct from "../services/getSingleProduct";
 import SimilarProducts from "./SimilarProducts";
+import ReactTooltip from "react-tooltip";
+import { useUserCart, useUserCartDispatcher } from "../context/UserCartContext";
 
-const ProductDetail = (props) => {
+const ProductDetail = props => {
+  const dispatch = useUserCartDispatcher();
+  const userCart = useUserCart();
   const [product, setProduct] = useState({
     images: [],
     category: { id: null },
@@ -15,21 +22,44 @@ const ProductDetail = (props) => {
 
   const [detail, setDetail] = useState("DESCRIPTION");
   const [active, setActive] = useState(0);
-  const [selectedColor, setColor] = useState();
+  const [selectedColor, setColor] = useState("");
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    getSingleProduct(props.match.params.id).then((res) => setProduct(res.data));
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    getSingleProduct(props.match.params.id).then(res => setProduct(res.data));
   }, []);
 
-  const colors = ["bg-red-400", "bg-green-400", "bg-black", "bg-yellow-400"];
+  const addToCart = () => {
+    if (selectedColor === "") {
+      toast.warning("Please select a color.");
+    } else {
+      dispatch([
+        ...userCart,
+        {
+          colorClass: "bg-" + selectedColor + "-300",
+          id: props.match.params.id,
+          color: selectedColor,
+          quantity: count,
+          title: product.title,
+          image: product.images[0],
+          price: product.price,
+          suk: props.match.params.id + selectedColor,
+        },
+      ]);
+      toast.success(`${product.title} added to your cart.`, {
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const colors = [
+    { class: "bg-red-400", name: "red" },
+    { class: "bg-green-400", name: "green" },
+    { class: "bg-gray-800", name: "gray" },
+    { class: "bg-yellow-400", name: "yellow" },
+  ];
   return (
-    <main className="w-full max-w-7xl  flex  flex-col justify-center mx-auto bg-gray-50 rounded-lg my-12 ">
+    <main className="w-full max-w-7xl  flex  flex-col justify-center mx-auto bg-gray-50 rounded-lg my-12">
       <section className=" w-full flex justify-center md:flex-row flex-col mx-auto py-12 px-4 gap-2">
         <div className="  flex flex-col-reverse justify-between gap-y-2">
           <div className=" max-w-xl">
@@ -56,13 +86,13 @@ const ProductDetail = (props) => {
             <div className=" right-2 text-4xl font-bold text-orange-400">
               <AiOutlineLeft
                 onClick={() => {
-                  active >= 1 && setActive((prev) => prev - 1);
+                  active >= 1 && setActive(prev => prev - 1);
                 }}
                 className="top-1/2 absolute cursor-pointer mb-2 hover:text-orange-500"
               />
               <AiOutlineRight
                 onClick={() => {
-                  active < 2 && setActive((prev) => prev + 1);
+                  active < 2 && setActive(prev => prev + 1);
                 }}
                 className="top-1/2 absolute right-0 cursor-pointer hover:text-orange-500"
               />
@@ -76,17 +106,25 @@ const ProductDetail = (props) => {
           <p className="mb-4">{product.description}</p>
           <h2 className="text-2xl font-semibold mb-4">${product.price}</h2>
 
-          <div className="mb-4 max-w-xl  pt-3">
+          <div className="mb-4 max-w-xl pt-3">
             <p className="mb-6 text-lg">SELECT COLOR</p>
-            {colors.map((color, index) => {
+
+            {colors.map(color => {
               return (
-                <span
-                  onClick={() => setColor(index)}
-                  className={`${color} ${
-                    selectedColor === index &&
-                    "outline outline-offset-2 outline-orange-500 outline-2 "
-                  } cursor-pointer text-black rounded-full px-3 py-0.5 mr-2 `}
-                ></span>
+                <>
+                  <span
+                    data-tip={color.name}
+                    onClick={() => setColor(color.name)}
+                    className={`${color.class} ${
+                      selectedColor === color.name &&
+                      " outline outline-offset-2 outline-orange-500 outline-2 "
+                    } cursor-pointer text-black rounded-full px-3 py-0.5 mr-3 `}
+                  ></span>
+                  <ReactTooltip
+                    effect={"solid"}
+                    className={"!p-2 !bg-gray-800"}
+                  />
+                </>
               );
             })}
           </div>
@@ -97,19 +135,32 @@ const ProductDetail = (props) => {
                 className={`${
                   count === 1 && "text-gray-400 cursor-not-allowed"
                 } text-xl font-semibold cursor-pointer`}
-                onClick={() => count > 1 && setCount((prev) => prev - 1)}
+                onClick={() => count > 1 && setCount(prev => prev - 1)}
               />
               <AiOutlinePlus
                 className="text-xl font-semibold cursor-pointer"
-                onClick={() => setCount((prev) => prev + 1)}
+                onClick={() => setCount(prev => prev + 1)}
               />
             </span>
           </div>
-
-          <button className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg">
-            ADD TO CART
-            <BsFillCartPlusFill className="text-lg" />
-          </button>
+          {userCart.find(
+            item =>
+              item.id === props.match.params.id && item.color === selectedColor
+          ) ? (
+            <button className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg">
+              <Link className="w-full" to={"/cart"}>
+                In Cart
+              </Link>
+            </button>
+          ) : (
+            <button
+              onClick={() => addToCart()}
+              className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg"
+            >
+              ADD TO CART
+              <BsFillCartPlusFill className="text-lg" />
+            </button>
+          )}
         </div>
       </section>
       <section className=" w-full mb-12 border-t-2">
@@ -140,7 +191,7 @@ const ProductDetail = (props) => {
               detail === "SPECIFICATION"
                 ? "border-orange-600 border-b-2 transition-all duration-500"
                 : "border-orange-200 border-b-2 text-gray-500  "
-            } sm:px-10 py-4 px-4 text-sm sm:text-base cursor-pointer font-semibold `}
+            } sm:px-10 py-4 px-2 text-sm sm:text-base cursor-pointer font-semibold `}
           >
             SPECIFICATION
           </li>

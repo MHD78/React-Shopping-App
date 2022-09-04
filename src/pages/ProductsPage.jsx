@@ -22,7 +22,6 @@ const ProductsPage = ({ location }) => {
   const renderHandler = () => {
     if (render === "skeleton") return <ProductsSkeleton />;
     else if (render === "nothing") {
-      console.log(render);
       return (
         <div className="w-fit mx-auto flex flex-col items-center justify-self-center my-28 bg-white p-3 rounded-lg dark:bg-gray-200 dark:shadow-none shadow-gray-300 shadow-2xl  ">
           <img
@@ -70,7 +69,6 @@ const ProductsPage = ({ location }) => {
   }, [location]);
 
   useEffect(() => {
-    console.log(products);
     if (products.length === 0) setRender("nothing");
     else setRender("content");
   }, [products]);

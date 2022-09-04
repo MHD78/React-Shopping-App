@@ -9,11 +9,11 @@ const SimilarProducts = ({ category }) => {
   const test = useRef();
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    getProdsByCategory(category, 0, 15).then((res) => setProducts(res.data));
+    getProdsByCategory(category, 0, 15).then(res => setProducts(res.data));
     console.log(category);
     test.current.scrollIntoView({ behavior: "smooth" });
   }, [category, test]);
-  const scroll = (value) => {
+  const scroll = value => {
     test.current.scrollLeft += value;
   };
   return (
@@ -29,7 +29,7 @@ const SimilarProducts = ({ category }) => {
         ref={test}
         className="no-scrollbar  flex gap-4 overflow-x-scroll rounded-b-lg bg-gray-300 p-4 snap-x scroll-smooth "
       >
-        {products.map((product) => {
+        {products.map(product => {
           return (
             <Link
               className="min-w-[230px]"

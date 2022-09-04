@@ -14,14 +14,14 @@ const Pagination = ({ category }) => {
   useEffect(() => {
     if (category === "0") {
       getAllProds("", "").then((response) => {
-        for (let i = 0; i < Math.floor(response.data.length / 20); i++) {
+        for (let i = 0; i < Math.ceil(response.data.length / 20); i++) {
           if (i !== 0) res.push({ value: i });
         }
         setCount(res);
       });
     } else {
       getProdsByCategory(category).then((response) => {
-        for (let i = 0; i < Math.floor(response.data.length / 20); i++) {
+        for (let i = 0; i < Math.ceil(response.data.length / 20); i++) {
           if (i !== 0) res.push({ value: i });
         }
         setCount(res);
@@ -35,7 +35,7 @@ const Pagination = ({ category }) => {
   return (
     <ul
       className={`${
-        count < 20 ? "invisible" : "visible"
+        count.length <= 1 ? "invisible" : "visible"
       } mx-auto my-5 flex items-center justify-center dark:text-white  gap-x-2 lg:p-2  text-sm md:text-base w-full`}
     >
       <li>
