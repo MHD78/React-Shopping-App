@@ -11,22 +11,22 @@ import { TbReportMoney } from "react-icons/tb";
 const Footer = () => {
   return (
     <footer className=" bg-zinc-800  dark:bg-[#0e0d29]">
-      <section className="max-w-[1440px] m-auto py-6 border-b-[1px] border-orange-600 hidden md:block ">
+      <section className="max-w-[1440px] m-auto py-6 border-b-[1px] border-hoverPrimary hidden md:block ">
         <ul className="flex justify-around items-center gap-x-5 ">
           <li className="text-gray-50 text-sm min-w-max ">
-            <BiTimer className="text-2xl sm:text-3xl md:text-4xl text-orange-500 m-auto mb-3" />
+            <BiTimer className="text-2xl sm:text-3xl md:text-4xl text-[#ffb700] m-auto mb-3" />
             Support Center
           </li>
           <li className="text-gray-50 text-sm min-w-max ">
-            <TbTruckDelivery className="text-2xl sm:text-3xl md:text-4xl text-orange-500 m-auto mb-3" />
+            <TbTruckDelivery className="text-2xl sm:text-3xl md:text-4xl text-[#ffb700] m-auto mb-3" />
             Shipping, Delivery and Store Pickup
           </li>
           <li className="text-gray-50 text-sm min-w-max ">
-            <AiOutlineDollar className="text-2xl sm:text-3xl md:text-4xl text-orange-500 m-auto mb-3" />
+            <AiOutlineDollar className="text-2xl sm:text-3xl md:text-4xl text-[#ffb700] m-auto mb-3" />
             Returns and Exchanges
           </li>
           <li className="text-gray-50 text-sm min-w-max ">
-            <BsBoxSeam className="text-2xl sm:text-3xl md:text-4xl text-orange-500 m-auto mb-3" />
+            <BsBoxSeam className="text-2xl sm:text-3xl md:text-4xl text-[#ffb700] m-auto mb-3" />
             Check your Order Status
           </li>
         </ul>
@@ -66,7 +66,7 @@ const Footer = () => {
             <input
               type="submit"
               value={"Sign Up"}
-              className="bg-orange-600 p-2"
+              className="bg-hoverPrimary p-2 text-zinc-900 font-semibold"
             />
           </form>
           <div className="gap-x-4 mt-6 text-xl flex justify-around items-center">

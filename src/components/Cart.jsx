@@ -35,7 +35,7 @@ const Cart = () => {
           <h1 className="text-lg font-semibold">Your cart is empty!</h1>
           <Link
             to={"/products/page/1?category=0&price=All"}
-            className="bg-orange-400 text-white font-semibold rounded-lg px-2 py-1"
+            className="bg-primary text-zinc-800 font-semibold rounded-lg px-4 py-1"
           >
             back to products
           </Link>
@@ -81,7 +81,7 @@ const Cart = () => {
                   </span>
                 </span>
                 <span className="flex items-center gap-2 text-sm sm:text-base text-gray-400">
-                  <span className="flex items-center gap-1 cursor-pointer transition-colors duration-400 hover:text-orange-500">
+                  <span className="flex items-center gap-1 cursor-pointer transition-colors duration-400 hover:text-hoverPrimary">
                     <AiFillHeart />
                     Save
                   </span>
@@ -130,7 +130,7 @@ const Cart = () => {
   return (
     <section className="my-24 px-4 w-full lg:flex-row flex-col justify-center flex gap-4">
       <div className="w-full  lg:max-w-2xl h-fit rounded-lg bg-white p-6">
-        <h1 className="text-lg font-semibold border-b-2 border-orange-300 max-w-fit pr-2 pb-2">
+        <h1 className="text-lg font-semibold border-b-2 border-hoverPrimary max-w-fit pr-2 pb-2">
           Cart
         </h1>
         {render()}
@@ -144,7 +144,7 @@ const Cart = () => {
             <p
               onClick={() => setDelivery("free")}
               className={`${
-                delivery === "free" && "bg-white text-gray-900"
+                delivery === "free" && "bg-primary text-zinc-800"
               } font-semibold px-3 py-1 rounded-lg cursor-pointer`}
             >
               Free
@@ -152,7 +152,7 @@ const Cart = () => {
             <p
               onClick={() => setDelivery("express")}
               className={`${
-                delivery === "express" && "bg-white text-gray-900"
+                delivery === "express" && "bg-primary text-zinc-800"
               } font-semibold px-3 py-1 rounded-lg cursor-pointer`}
             >
               Express: $9.99
@@ -169,7 +169,7 @@ const Cart = () => {
               placeholder="Promocode..."
               type="text"
             />
-            <button className="absolute right-0  bg-orange-400 text-white px-3 py-1 rounded-tr-lg rounded-br-lg">
+            <button className="absolute right-0  bg-primary text-zinc-800 font-semibold px-3 py-1 rounded-tr-lg rounded-br-lg">
               Apply
             </button>
           </span>
@@ -195,10 +195,10 @@ const Cart = () => {
             <h2 className="text-lg">Total</h2>
             <h2 className="text-lg">${total}</h2>
           </span>
-          <button className="md:w-full bg-orange-400 hover:bg-orange-500 font-semibold py-1 text-white rounded-lg">
+          <button className="md:w-full bg-primary hover:bg-hoverPrimary font-semibold py-1 text-zinc-800 rounded-lg">
             Proceed to checkout
           </button>
-          <button className="md:w-full bg-white border-orange-300 font-semibold border-[1px] text-gray-700 py-1  rounded-lg">
+          <button className="md:w-full bg-white border-hoverPrimary font-semibold border-[1px] text-zinc-800 py-1  rounded-lg">
             <Link to={"/products/page/1?category=0&price=All"}>
               Countinue shopping
             </Link>

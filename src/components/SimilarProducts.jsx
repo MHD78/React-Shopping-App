@@ -19,11 +19,11 @@ const SimilarProducts = ({ category }) => {
   return (
     <div className="relative border-t-2">
       <h2 className="m-8 text-center text-xl font-semibold">
-        Similar Products
+        Related Products
       </h2>
       <AiOutlineLeft
         onClick={() => scroll(-200)}
-        className="absolute text-xl sm:text-2xl rounded-full p-1.5 font-bold box-content bg-orange-400 text-white left-0 top-1/2 m-2 cursor-pointer  z-10 "
+        className="absolute text-xl sm:text-2xl rounded-full p-1.5 font-bold box-content bg-primary hover:bg-hoverPrimary text-black left-0 top-1/2 m-2 cursor-pointer  z-10 "
       />
       <div
         ref={test}
@@ -43,7 +43,7 @@ const SimilarProducts = ({ category }) => {
       </div>
       <AiOutlineRight
         onClick={() => scroll(+200)}
-        className="absolute text-xl sm:text-2xl rounded-full p-1.5 font-bold box-content bg-orange-400 text-white right-0 top-1/2 z-10 m-2 cursor-pointer"
+        className="absolute text-xl sm:text-2xl rounded-full p-1.5 font-bold box-content bg-primary hover:bg-hoverPrimary text-zinc-800  right-0 top-1/2 z-10 m-2 cursor-pointer"
       />
     </div>
   );

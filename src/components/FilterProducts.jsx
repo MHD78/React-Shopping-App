@@ -91,6 +91,7 @@ const FilterProducts = ({ status, setStatus }) => {
                 pathname: "/products/page/1",
                 search: `?category=${index}&price=${price}`,
               }}
+              key={index}
             >
               <RadioGroup.Option
                 value={category}
@@ -101,7 +102,7 @@ const FilterProducts = ({ status, setStatus }) => {
                   <span className="flex justify-between items-center">
                     {category}
                     {checked ? (
-                      <BiCheckboxChecked className="text-2xl text-[#da7d26] " />
+                      <BiCheckboxChecked className="text-2xl text-hoverPrimary " />
                     ) : (
                       <BiCheckbox className="text-2xl" />
                     )}
@@ -135,7 +136,7 @@ const FilterProducts = ({ status, setStatus }) => {
                   <span className="flex justify-between items-center">
                     {price}
                     {checked ? (
-                      <BiCheckboxChecked className="text-2xl text-[#da7d26]" />
+                      <BiCheckboxChecked className="text-2xl text-hoverPrimary" />
                     ) : (
                       <BiCheckbox className="text-2xl" />
                     )}

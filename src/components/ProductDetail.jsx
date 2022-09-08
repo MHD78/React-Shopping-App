@@ -31,7 +31,7 @@ const ProductDetail = props => {
 
   const addToCart = () => {
     if (selectedColor === "") {
-      toast.warning("Please select a color.");
+      toast.warning("Please select a color.", { autoClose: 3000 });
     } else {
       dispatch([
         ...userCart,
@@ -59,7 +59,7 @@ const ProductDetail = props => {
     { class: "bg-yellow-400", name: "yellow" },
   ];
   return (
-    <main className="w-full max-w-7xl  flex  flex-col justify-center mx-auto bg-gray-50 rounded-lg my-12">
+    <main className="w-full max-w-7xl  flex  flex-col justify-center mx-auto  bg-gray-50 dark:bg-zinc-600 dark:text-white rounded-lg my-12">
       <section className=" w-full flex justify-center md:flex-row flex-col mx-auto py-12 px-4 gap-2">
         <div className="  flex flex-col-reverse justify-between gap-y-2">
           <div className=" max-w-xl">
@@ -71,8 +71,8 @@ const ProductDetail = props => {
                       onClick={() => setActive(index)}
                       className={`${
                         active === index
-                          ? "border-orange-600 border-b-2 transition-all duration-500"
-                          : "border-orange-200 border-b-2"
+                          ? "border-hoverPrimary border-b-2 transition-all duration-500"
+                          : "border-zinc-300 border-b-2"
                       } pr-1 py-2 `}
                     >
                       <img src={image} className=" rounded-lg cursor-pointer" />
@@ -83,18 +83,18 @@ const ProductDetail = props => {
           </div>
           <div className=" relative max-w-xl ">
             <img src={product.images[active]} className="rounded-lg" />
-            <div className=" right-2 text-4xl font-bold text-orange-400">
+            <div className=" right-2 text-4xl font-bold text-primary">
               <AiOutlineLeft
                 onClick={() => {
                   active >= 1 && setActive(prev => prev - 1);
                 }}
-                className="top-1/2 absolute cursor-pointer mb-2 hover:text-orange-500"
+                className="top-1/2 absolute cursor-pointer mb-2 hover:text-hoverPrimary"
               />
               <AiOutlineRight
                 onClick={() => {
                   active < 2 && setActive(prev => prev + 1);
                 }}
-                className="top-1/2 absolute right-0 cursor-pointer hover:text-orange-500"
+                className="top-1/2 absolute right-0 cursor-pointer hover:text-hoverPrimary"
               />
             </div>
           </div>
@@ -117,7 +117,7 @@ const ProductDetail = props => {
                     onClick={() => setColor(color.name)}
                     className={`${color.class} ${
                       selectedColor === color.name &&
-                      " outline outline-offset-2 outline-orange-500 outline-2 "
+                      " outline outline-offset-2 outline-hoverPrimary outline-2 "
                     } cursor-pointer text-black rounded-full px-3 py-0.5 mr-3 `}
                   ></span>
                   <ReactTooltip
@@ -147,7 +147,7 @@ const ProductDetail = props => {
             item =>
               item.id === props.match.params.id && item.color === selectedColor
           ) ? (
-            <button className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg">
+            <button className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-hoverPrimary px-full py-2 rounded-lg">
               <Link className="w-full" to={"/cart"}>
                 In Cart
               </Link>
@@ -155,7 +155,7 @@ const ProductDetail = props => {
           ) : (
             <button
               onClick={() => addToCart()}
-              className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-orange-400 hover:bg-orange-500 px-full py-2 rounded-lg"
+              className=" flex justify-center gap-2  items-center max-w-xl w-full text-gray-700 text-lg font-bold bg-primary hover:bg-hoverPrimary px-full py-2 rounded-lg"
             >
               ADD TO CART
               <BsFillCartPlusFill className="text-lg" />
@@ -169,8 +169,8 @@ const ProductDetail = props => {
             onClick={() => setDetail("DESCRIPTION")}
             className={`${
               detail === "DESCRIPTION"
-                ? "border-orange-600 border-b-2 transition-all duration-500"
-                : "border-orange-200 border-b-2 text-gray-500"
+                ? "border-hoverPrimary border-b-2 transition-all duration-500"
+                : "border-zinc-300 border-b-2 text-gray-500"
             } sm:px-10 py-4 px-4 text-sm sm:text-base  cursor-pointer font-semibold `}
           >
             DESCRIPTION
@@ -179,8 +179,8 @@ const ProductDetail = props => {
             onClick={() => setDetail("FEATURES")}
             className={`${
               detail === "FEATURES"
-                ? "border-orange-600 border-b-2 transition-all duration-500"
-                : "border-orange-200 border-b-2 text-gray-500 "
+                ? "border-hoverPrimary border-b-2 transition-all duration-500"
+                : "border-zinc-300 border-b-2 text-gray-500 "
             } sm:px-10 py-4 px-4 text-sm sm:text-base cursor-pointer font-semibold`}
           >
             FEATURES
@@ -189,8 +189,8 @@ const ProductDetail = props => {
             onClick={() => setDetail("SPECIFICATION")}
             className={`${
               detail === "SPECIFICATION"
-                ? "border-orange-600 border-b-2 transition-all duration-500"
-                : "border-orange-200 border-b-2 text-gray-500  "
+                ? "border-hoverPrimary border-b-2 transition-all duration-500"
+                : "border-zinc-300 border-b-2 text-gray-500  "
             } sm:px-10 py-4 px-2 text-sm sm:text-base cursor-pointer font-semibold `}
           >
             SPECIFICATION

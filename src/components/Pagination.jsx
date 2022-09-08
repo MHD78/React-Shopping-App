@@ -13,14 +13,14 @@ const Pagination = ({ category }) => {
 
   useEffect(() => {
     if (category === "0") {
-      getAllProds("", "").then((response) => {
+      getAllProds("", "").then(response => {
         for (let i = 0; i < Math.ceil(response.data.length / 20); i++) {
           if (i !== 0) res.push({ value: i });
         }
         setCount(res);
       });
     } else {
-      getProdsByCategory(category).then((response) => {
+      getProdsByCategory(category).then(response => {
         for (let i = 0; i < Math.ceil(response.data.length / 20); i++) {
           if (i !== 0) res.push({ value: i });
         }
@@ -47,14 +47,14 @@ const Pagination = ({ category }) => {
           <AiOutlineArrowLeft className="cursor-pointer" />
         </Link>
       </li>
-      {count.map((item) => {
+      {count.map(item => {
         return (
           <Link to={`/products/page/${item.value}${window.location.search}`}>
             <li
               value={item.value}
               className={`${
                 active === item.value &&
-                "bg-orange-400 text-white rounded-full transition-all duration-400 "
+                "bg-hoverPrimary text-white rounded-full transition-all duration-400 "
               }  px-1.5 md:px-2  cursor-pointer `}
             >
               {item.value}
