@@ -23,14 +23,14 @@ const Login = () => {
 
   return (
     <div
-      className="h-screen bg-left-bottom w-full bg-cover flex "
+      className=" bg-left-bottom w-full bg-cover flex "
       style={{
         backgroundImage: `url(https://img.freepik.com/free-photo/black-friday-elements-assortment_23-2149074076.jpg?w=1380&t=st=1662465083~exp=1662465683~hmac=16599bdebc2cc3c50a3ee9827471a20676e17a12176402fff43cbe78839a703e)`,
       }}
     >
       <form
         onSubmit={formik.submitForm}
-        className="flex flex-col self-center mx-auto lg:ml-64  items-center gap-3 bg-white p-12 max-w-fit rounded-lg sha shadow-[15px_15px_4px_0px_rgba(0,0,0,0.2)] "
+        className="flex flex-col self-center my-6 mx-auto lg:ml-64  items-center gap-3 bg-white p-8 max-w-fit rounded-lg sha shadow-[15px_15px_4px_0px_rgba(0,0,0,0.2)] "
       >
         <h2 className="text-xl font-semibold mb-6 ">Welcome Back</h2>
         <div className="flex flex-col gap-2 ">
