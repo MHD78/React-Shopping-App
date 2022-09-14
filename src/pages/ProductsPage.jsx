@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import SortProducts from "../components/SortProducts";
 
-const ProductsPage = ({ location }) => {
+const ProductsPage = ({ location, history }) => {
   const products = useProducts();
   const pageNumber = +location.pathname.split("/")[3];
   const dispatch = useProductsDispatcher();
@@ -52,12 +52,14 @@ const ProductsPage = ({ location }) => {
       getAllProds((pageNumber - 1) * 20, 20).then((response) => {
         dispatch({ type: "payload", data: response.data });
         dispatch({ type: "filterByPrice", value: query.price });
+        dispatch({ type: "sort", value: query.sort });
       });
     } else {
       getProdsByCategory(query.category, (pageNumber - 1) * 20, 20).then(
         (response) => {
           dispatch({ type: "payload", data: response.data });
           dispatch({ type: "filterByPrice", value: query.price });
+          dispatch({ type: "sort", value: query.sort });
         }
       );
     }
@@ -78,11 +80,11 @@ const ProductsPage = ({ location }) => {
       <div className="max-w-7xl grid grid-cols-12 m-auto">
         <FilterProducts setStatus={setStatus} status={status} />
         <div className=" col-span-full sm:col-span-12 lg:col-span-10 w-full ">
-          <SortProducts setStatus={setStatus} />
+          <SortProducts history={history} location={location} setStatus={setStatus} />
           {renderHandler()}
         </div>
       </div>
-      <Pagination category={query.category} />
+      <Pagination location={location} category={query.category} />
     </>
   );
 };

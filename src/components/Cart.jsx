@@ -143,17 +143,15 @@ const Cart = () => {
           <div className="flex max-w-max rounded-lg  gap-5 justify-around items-center p-1 bg-gray-200  ">
             <p
               onClick={() => setDelivery("free")}
-              className={`${
-                delivery === "free" && "bg-primary text-zinc-800"
-              } font-semibold px-3 py-1 rounded-lg cursor-pointer`}
+              className={`${delivery === "free" && "bg-primary text-zinc-800"
+                } font-semibold px-3 py-1 rounded-lg cursor-pointer`}
             >
               Free
             </p>
             <p
               onClick={() => setDelivery("express")}
-              className={`${
-                delivery === "express" && "bg-primary text-zinc-800"
-              } font-semibold px-3 py-1 rounded-lg cursor-pointer`}
+              className={`${delivery === "express" && "bg-primary text-zinc-800"
+                } font-semibold px-3 py-1 rounded-lg cursor-pointer`}
             >
               Express: $9.99
             </p>
@@ -195,9 +193,9 @@ const Cart = () => {
             <h2 className="text-lg">Total</h2>
             <h2 className="text-lg">${total}</h2>
           </span>
-          <button className="md:w-full bg-primary hover:bg-hoverPrimary font-semibold py-1 text-zinc-800 rounded-lg">
+          <Link to={"/login"} className="md:w-full bg-primary text-center hover:bg-hoverPrimary font-semibold py-1 text-zinc-800 rounded-lg">
             Proceed to checkout
-          </button>
+          </Link>
           <button className="md:w-full bg-white border-hoverPrimary font-semibold border-[1px] text-zinc-800 py-1  rounded-lg">
             <Link to={"/products/page/1?category=0&price=All"}>
               Countinue shopping

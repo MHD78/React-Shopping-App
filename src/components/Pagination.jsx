@@ -5,8 +5,8 @@ import getAllProds from "../services/getAllProductsService";
 import getProdsByCategory from "../services/getProdsByCategory";
 import { Link } from "react-router-dom";
 
-const Pagination = ({ category }) => {
-  const pageNumber = +window.location.pathname.split("/")[3];
+const Pagination = ({ location, category }) => {
+  const pageNumber = +location.pathname.split("/")[3];
   const res = [];
   const [active, setActive] = useState(1);
   const [count, setCount] = useState([]);
@@ -34,15 +34,13 @@ const Pagination = ({ category }) => {
 
   return (
     <ul
-      className={`${
-        count.length <= 1 ? "invisible" : "visible"
-      } mx-auto my-5 flex items-center justify-center dark:text-white  gap-x-2 lg:p-2  text-sm md:text-base w-full`}
+      className={`${count.length <= 1 ? "invisible" : "visible"
+        } mx-auto my-5 flex items-center justify-center dark:text-white  gap-x-2 lg:p-2  text-sm md:text-base w-full`}
     >
       <li>
         <Link
-          to={`/products/page/${active > 1 ? active - 1 : active}${
-            window.location.search
-          }`}
+          to={`/products/page/${active > 1 ? active - 1 : active}${window.location.search
+            }`}
         >
           <AiOutlineArrowLeft className="cursor-pointer" />
         </Link>
@@ -52,10 +50,9 @@ const Pagination = ({ category }) => {
           <Link to={`/products/page/${item.value}${window.location.search}`}>
             <li
               value={item.value}
-              className={`${
-                active === item.value &&
+              className={`${active === item.value &&
                 "bg-hoverPrimary text-white rounded-full transition-all duration-400 "
-              }  px-1.5 md:px-2  cursor-pointer `}
+                }  px-1.5 md:px-2  cursor-pointer `}
             >
               {item.value}
             </li>
@@ -64,9 +61,8 @@ const Pagination = ({ category }) => {
       })}
       <li>
         <Link
-          to={`/products/page/${active < count.length ? active + 1 : active}${
-            window.location.search
-          }`}
+          to={`/products/page/${active < count.length ? active + 1 : active}${window.location.search
+            }`}
         >
           <AiOutlineArrowRight className="cursor-pointer" />
         </Link>

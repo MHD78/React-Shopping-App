@@ -10,7 +10,6 @@ const SimilarProducts = ({ category }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     getProdsByCategory(category, 0, 15).then(res => setProducts(res.data));
-    console.log(category);
     test.current.scrollIntoView({ behavior: "smooth" });
   }, [category, test]);
   const scroll = value => {

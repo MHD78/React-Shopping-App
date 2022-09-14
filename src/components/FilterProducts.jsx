@@ -29,6 +29,7 @@ const prices = [
 const FilterProducts = ({ status, setStatus }) => {
   const query = queryString.parse(window.location.search);
 
+
   const products = useProducts();
   const dispatch = useProductsDispatcher();
 
@@ -58,9 +59,8 @@ const FilterProducts = ({ status, setStatus }) => {
 
   return (
     <section
-      className={`${
-        status === "close" ? "invisible" : "visible"
-      } absolute w-full lg:h-fit h-4/6 overflow-y-scroll lg:overflow-hidden bottom-0 dark:bg-zinc-600 dark:text-gray-50 flex flex-col gap-2 z-10 lg:col-span-2 lg:visible lg:w-fit bg-white lg:ml-4 mt-4 rounded-lg  lg:sticky lg:top-5 `}
+      className={`${status === "close" ? "invisible" : "visible"
+        } absolute w-full lg:h-fit h-4/6 overflow-y-scroll lg:overflow-hidden bottom-0 dark:bg-zinc-600 dark:text-gray-50 flex flex-col gap-2 z-10 lg:col-span-2 lg:visible lg:w-fit bg-white lg:ml-4 mt-4 rounded-lg  lg:sticky lg:top-5 `}
     >
       <div className="px-2 pt-2 flex items-center justify-between lg:hidden text-lg lg:text-xl font-bold">
         <span className="flex items-center gap-1">
@@ -89,7 +89,7 @@ const FilterProducts = ({ status, setStatus }) => {
             <Link
               to={{
                 pathname: "/products/page/1",
-                search: `?category=${index}&price=${price}`,
+                search: `?category=${index}&price=${price}&sort=${query.sort}`,
               }}
               key={index}
             >
@@ -124,7 +124,7 @@ const FilterProducts = ({ status, setStatus }) => {
                 pathname: "/products/page/1",
                 search: `?category=${categories.indexOf(
                   category
-                )}&price=${price}`,
+                )}&price=${price}&sort=${query.sort}`,
               }}
             >
               <RadioGroup.Option
