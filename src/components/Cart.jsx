@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUserCart, useUserCartDispatcher } from "../context/UserCartContext";
 
+
+
 const Cart = () => {
   const userCart = useUserCart();
   const dispatch = useUserCartDispatcher();
@@ -13,6 +15,7 @@ const Cart = () => {
   const [delivery, setDelivery] = useState("free");
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(subTotal);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     setCart(userCart);
@@ -112,6 +115,7 @@ const Cart = () => {
 
   const deleteHandler = (id, color) => {
     dispatch(cart.filter(item => item.suk !== id + color));
+    setModal(true)
   };
 
   const countHandler = (id, color, type) => {

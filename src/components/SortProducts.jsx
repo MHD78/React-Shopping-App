@@ -18,7 +18,7 @@ const SortProducts = ({ setStatus, location, history }) => {
             history.replace(`${location.pathname}?${queryString.stringify(clone)}`)
           }}
         >
-          {/* <option value="none">none</option> */}
+          <option value="none">none</option>
           <option value="low">Price-low to high</option>
           <option value="high">Price-high to low</option>
         </select>
