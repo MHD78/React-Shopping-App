@@ -9,4 +9,6 @@ key features:
 
 3- pagination for products loading
 
+4- supporting PWA
+
 online demo => https://scintillating-kitten-eb7494.netlify.app
