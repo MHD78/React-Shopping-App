@@ -7,22 +7,31 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      injectRegister: "script",
       devOptions: {
         enabled: true,
-        type: "module",
       },
-      strategies: "generateSW",
-      srcDir: "public",
-      filename: "sw.js",
+
       manifest: {
-        short_name: "RSA",
         name: "React Shopping App",
-        start_url: "/",
-        display: "standalone",
+        short_name: "RSA",
+        description: "React Shopping App description",
         theme_color: "#FFF",
         icons: [
-          { src: "/icons/logo.png", type: "image/png", sizes: "512x512" },
+          {
+            src: "/icons/icons8-react-64.png",
+            sizes: "64x64",
+            type: "image/png",
+          },
+          {
+            src: "/icons/icons8-react-256.png",
+            sizes: "256x256",
+            type: "image/png",
+          },
+          {
+            src: "/icons/icons8-react-512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
         ],
       },
     }),
